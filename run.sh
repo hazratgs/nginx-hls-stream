@@ -28,3 +28,6 @@ sudo ufw limit ssh
 sudo ufw allow 80
 sudo ufw allow 1935
 sudo ufw enable
+mv nginx.conf /usr/local/nginx/conf/nginx.conf
+mv index.html /usr/local/nginx/conf/
+sudo service nginx restart
