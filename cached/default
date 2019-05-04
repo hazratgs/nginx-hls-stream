@@ -1,0 +1,31 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	root /var/www/html;
+
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+  location ~ \.ts$ {
+    proxy_cache_valid 200 301 302 304 5m;
+    proxy_cache_key "$request_method|$http_if_modified_since|$http_if_none_match|$host|$request_uri";
+    proxy_hide_header "Set-Cookie";
+    proxy_ignore_headers "Cache-Control" "Expires";
+    proxy_cache_use_stale error timeout invalid_header http_500 http_502 http_503 http_504;
+    proxy_cache	pagecache;
+    
+    # try_files $uri $uri/ =404;
+    proxy_pass              http://78.155.218.155;
+		proxy_set_header        Host             $host;
+		proxy_set_header        X-Real-IP        $remote_addr;
+  }
+
+	location / {
+		# try_files $uri $uri/ =404;
+    proxy_pass              http://78.155.218.155;
+		proxy_set_header        Host             $host;
+		proxy_set_header        X-Real-IP        $remote_addr;
+	}
+}
