@@ -1,0 +1,37 @@
+<html>
+
+<head>
+  <script src="/cdn-cgi/apps/head/y8MXf5E3ufQc52wip_GYiCUIaqU.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/clappr/latest/clappr.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/clappr.level-selector/latest/level-selector.min.js"></script>
+  <meta name="referrer" content="no-referrer">
+  <style>
+    html,
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="ppp"></div>
+  <script>
+    var playerElement = document.getElementById("ppp");
+    var player = new Clappr.Player({
+      source: '/live/UFC/index.m3u8',
+      height: "100%",
+      width: "100%",
+      parentId: "#ppp",
+      plugins: { 'core': [LevelSelector] },
+      mimeType: "application/x-mpegURL",
+      autoPlay: false,
+    });
+  </script>
+</body>
+<script>
+      // use it commet serve
+</script>
+
+</html>
