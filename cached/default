@@ -23,6 +23,9 @@ server {
     proxy_pass              http://78.155.218.155;
 		proxy_set_header        Host             $host;
 		proxy_set_header        X-Real-IP        $remote_addr;
+
+    add_header X-Cache-Status $upstream_cache_status;
+    add header X-Cache-Key $request_uri;
   }
 
   location ~* \.(m3u8)$ {
