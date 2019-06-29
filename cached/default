@@ -1,6 +1,4 @@
-upstream stream {
-  server http://46.21.249.38;
-}
+
 
 server {
 	listen 80 default_server;
@@ -25,7 +23,7 @@ server {
 	}
 
   location ~ \.ts$ {
-    proxy_pass              stream;
+    proxy_pass              http://46.21.249.38;
 		proxy_set_header        Host             $host;
 		proxy_set_header        X-Real-IP        $remote_addr;
     proxy_buffering on;
@@ -36,7 +34,7 @@ server {
 
   location ~* \.(m3u8)$ {
     # proxy_cache off;
-    proxy_pass              stream;
+    proxy_pass              http://46.21.249.38;
     proxy_set_header        Host             $host;
     proxy_set_header        X-Real-IP        $remote_addr;
 	}
