@@ -1,3 +1,7 @@
+upstream stream {
+  server http://46.21.249.38;
+}
+
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
@@ -7,10 +11,10 @@ server {
 	server_name _;
 
   proxy_cache_valid 200 301 302 304 5m;
-  proxy_cache_key "$request_uri";
+  proxy_cache_key $uri$is_args$args;
   proxy_hide_header "Set-Cookie";
   proxy_ignore_headers "Cache-Control" "Expires";
-  proxy_cache_use_stale error timeout invalid_header http_500 http_502 http_503 http_504;
+  proxy_cache_use_stale updating timeout http_500 http_502 http_504;
   proxy_cache	pagecache;
 
 	location / {
@@ -21,7 +25,7 @@ server {
 	}
 
   location ~ \.ts$ {
-    proxy_pass              http://84.201.130.94;
+    proxy_pass              stream;
 		proxy_set_header        Host             $host;
 		proxy_set_header        X-Real-IP        $remote_addr;
     proxy_buffering on;
@@ -31,8 +35,8 @@ server {
   }
 
   location ~* \.(m3u8)$ {
-    proxy_cache off;
-    proxy_pass              http://84.201.130.94;
+    # proxy_cache off;
+    proxy_pass              stream;
     proxy_set_header        Host             $host;
     proxy_set_header        X-Real-IP        $remote_addr;
 	}
